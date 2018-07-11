@@ -1,0 +1,242 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8349,        234]
+NotebookOptionsPosition[      7668,        216]
+NotebookOutlinePosition[      8020,        232]
+CellTagsIndexPosition[      7977,        229]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"listImages", "=", 
+   RowBox[{
+   "Import", "[", 
+    "\"\</Users/nguyen/Documents/all_tar_images/all_images/train/*.JPEG\>\"", 
+    "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cropTrainImage", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ImageCrop", "[", 
+      RowBox[{"#", ",", 
+       RowBox[{"{", 
+        RowBox[{"224", ",", "224"}], "}"}]}], "]"}], "&"}], "/@", 
+    "listImages"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"rotateAll", "[", "x_", "]"}], ":=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"ImageRotate", "[", 
+      RowBox[{"x", ",", " ", 
+       RowBox[{"i", " ", "Degree"}], ",", " ", 
+       RowBox[{"Background", "\[Rule]", "None"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "270", ",", "90"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rotatedImage", "=", 
+   RowBox[{"rotateAll", "/@", "cropTrainImage"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"labelList", "=", 
+   RowBox[{"Table", "[", " ", 
+    RowBox[{
+     RowBox[{"ToString", "[", "i", "]"}], ",", 
+     RowBox[{"Length", "[", "listImages", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "270", ",", "90"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"imageWithLabel", "=", 
+   RowBox[{"Thread", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", "rotatedImage", "]"}], " ", "\[Rule]", " ", 
+     RowBox[{"Flatten", "[", "labelList", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Length", "[", "imageWithLabel", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "\"\</Users/nguyen/Documents\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<trained_set10k_new.mx\>\"", ",", "imageWithLabel"}], "]"}], 
+  ";"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.7399188674902163`*^9, 3.7399189423052683`*^9}, {
+  3.739984934722052*^9, 3.739984983393011*^9}, {3.740061590218326*^9, 
+  3.740061618056567*^9}, {3.740061737030867*^9, 3.740061745718688*^9}, {
+  3.740061837046111*^9, 3.7400618487082233`*^9}, {3.7400620087380953`*^9, 
+  3.740062034199695*^9}, {3.7400713357808037`*^9, 3.7400714647433977`*^9}, {
+  3.740097976878006*^9, 
+  3.7400979775125017`*^9}},ExpressionUUID->"b35bc4dc-4c88-404e-b91e-\
+0bd71343adff"],
+
+Cell[BoxData[
+ RowBox[{"(*", "****)"}]], "Input",
+ CellChangeTimes->{{3.739928231846983*^9, 3.739928233967001*^9}, {
+  3.739928734031775*^9, 
+  3.739928736928347*^9}},ExpressionUUID->"bffe7afb-165f-44e0-947b-\
+69bad98ee650"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"listTestImage", "=", 
+   RowBox[{
+   "Import", "[", 
+    "\"\</Users/nguyen/Documents/all_tar_images/all_images/test_set/*.JPEG\>\"\
+", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cropTestImage", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ImageCrop", "[", 
+      RowBox[{"#", ",", 
+       RowBox[{"{", 
+        RowBox[{"224", ",", "224"}], "}"}]}], "]"}], "&"}], " ", "/@", " ", 
+    "listTestImage"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"rotateAll", "[", "x_", "]"}], ":=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"ImageRotate", "[", 
+      RowBox[{"x", ",", " ", 
+       RowBox[{"i", " ", "Degree"}], ",", " ", 
+       RowBox[{"Background", "\[Rule]", "None"}]}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "270", ",", "90"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rotatedTestImage", "=", " ", 
+   RowBox[{"rotateAll", " ", "/@", "cropTestImage"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"labelTestList", "=", 
+   RowBox[{"Table", "[", " ", 
+    RowBox[{
+     RowBox[{"ToString", "[", "i", "]"}], ",", 
+     RowBox[{"Length", "[", "listTestImage", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "270", ",", "90"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"testImageWithLabel", "=", 
+   RowBox[{"Thread", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", "rotatedTestImage", "]"}], " ", "\[Rule]", " ", 
+     RowBox[{"Flatten", "[", "labelTestList", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "\"\</Users/nguyen/Documents\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<test_set1k_new.mx\>\"", ",", "testImageWithLabel"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.739928240353117*^9, 3.739928255358973*^9}, {
+  3.7399282857507467`*^9, 3.7399282863742247`*^9}, {3.73999036406107*^9, 
+  3.739990404399795*^9}, {3.740072199966817*^9, 3.74007229777704*^9}, {
+  3.740072349460371*^9, 3.740072354368593*^9}, {3.7400728526554737`*^9, 
+  3.740072864404669*^9}, {3.74009798028156*^9, 
+  3.7400979809018183`*^9}},ExpressionUUID->"3c59c170-a320-4f0a-b6b1-\
+8c7fc12cd212"],
+
+Cell[BoxData[
+ RowBox[{"(*", "****)"}]], "Input",
+ CellChangeTimes->{{3.739928560053913*^9, 3.739928561390472*^9}, {
+  3.740073310816927*^9, 
+  3.74007331348281*^9}},ExpressionUUID->"94656d0e-b7ed-4d47-bc08-\
+73355997510c"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"listValidateImage", "=", 
+   RowBox[{
+   "Import", "[", 
+    "\"\</Users/nguyen/Documents/all_tar_images/all_images/validate_set/*.\
+JPEG\>\"", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cropValidateImage", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ImageCrop", "[", 
+      RowBox[{"#", ",", 
+       RowBox[{"{", 
+        RowBox[{"224", ",", "224"}], "}"}]}], "]"}], "&"}], "/@", 
+    "listValidateImage"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"rotatedValidateImage", "=", " ", 
+   RowBox[{"rotateAll", " ", "/@", "cropValidateImage"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"labelValidateList", "=", 
+   RowBox[{"Table", "[", " ", 
+    RowBox[{
+     RowBox[{"ToString", "[", "i", "]"}], ",", 
+     RowBox[{"Length", "[", "listValidateImage", "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", "0", ",", "270", ",", "90"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"validateImageWithLabel", "=", 
+   RowBox[{"Thread", "[", 
+    RowBox[{
+     RowBox[{"Flatten", "[", "rotatedValidateImage", "]"}], " ", "\[Rule]", 
+     " ", 
+     RowBox[{"Flatten", "[", "labelValidateList", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", "\"\</Users/nguyen/Documents\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<validation_set1k_new.mx\>\"", ",", "validateImageWithLabel"}],
+    "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.73992858659194*^9, 3.7399286013310537`*^9}, {
+  3.73999087736779*^9, 3.739990877753132*^9}, {3.739990928215295*^9, 
+  3.739990958939047*^9}, {3.7400723733791437`*^9, 3.7400724446958933`*^9}, {
+  3.740072492798999*^9, 3.74007249745227*^9}, {3.740073022448411*^9, 
+  3.740073022727639*^9}, {3.740097983793211*^9, 
+  3.7400979844081573`*^9}},ExpressionUUID->"9588937f-12ba-4e4e-a64e-\
+81bbb1dc697a"]
+},
+WindowSize->{831, 676},
+WindowMargins->{{5, Automatic}, {Automatic, 5}},
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 7, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 2421, 65, 220, "Input",ExpressionUUID->"b35bc4dc-4c88-404e-b91e-0bd71343adff"],
+Cell[2982, 87, 224, 5, 30, "Input",ExpressionUUID->"bffe7afb-165f-44e0-947b-69bad98ee650"],
+Cell[3209, 94, 2293, 61, 178, "Input",ExpressionUUID->"3c59c170-a320-4f0a-b6b1-8c7fc12cd212"],
+Cell[5505, 157, 223, 5, 30, "Input",ExpressionUUID->"94656d0e-b7ed-4d47-bc08-73355997510c"],
+Cell[5731, 164, 1933, 50, 178, "Input",ExpressionUUID->"9588937f-12ba-4e4e-a64e-81bbb1dc697a"]
+}
+]
+*)
+
